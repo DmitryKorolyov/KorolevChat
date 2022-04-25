@@ -1,0 +1,107 @@
+.wrapper{
+    max-width: 50%;
+    box-sizing: border-box;
+    transition:max-height 0.5s ease-out;
+    /* height:auto; */
+    /* max-height: 70vh; */
+    padding: 1vw;
+    margin:0 auto;
+    /* margin-top: 1.5vh; */
+    border: 0.1em green;
+    border-style: none solid none solid;
+    /* overflow: auto; */
+
+    
+
+}
+
+.title{
+    font-size: 0.7em;
+}
+
+.dialogsWrapper{
+    max-height: 63vh;
+    height: auto;
+    overflow: auto;
+}
+
+.topBevel{
+    max-width: 46.8%;
+    margin:0 auto;
+    height: 3vw;
+    transform: skew(-45deg); /* Equal to skewX(10deg) */
+    border: 0.1em green;
+    border-style: none none none solid;
+}
+
+.bottomBevel{
+    max-width: 46.9%;
+    margin:0 auto;
+    height: 3vw;
+    transform: skew(-45deg); /* Equal to skewX(10deg) */
+    border: 0.1em green;
+    border-style: none solid none none;
+}
+
+.header{
+    max-width:99%;
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.1em solid green;
+    height: 7vh;
+    margin-bottom: 4vh;
+}
+
+/* 
+.titleContainer{
+    margin: 50px 50px;
+}
+
+.buttonContainer{
+    margin: 50px 50px;
+} */
+
+.titleSize{
+    text-align: center;
+    font-size: 0.3vw;
+}
+
+.button{
+    display: inline;
+
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: green;
+    color: black;
+}
+
+.customInput{
+    outline: 0;
+    font-size: 0.8em;
+	color: green;
+    background: rgba(0,0,0,0);
+	border:0.2vw green;
+    border-style: none none solid none;
+    margin-bottom: 1vh;
+
+    
+}
+
+
+@media screen and (max-width: 700px){
+    .wrapper{
+        max-width: 99%;
+    }
+    .topBevel{
+        max-width: 92.3%;
+        height: 6vw;
+    }
+    .bottomBevel{
+        max-width: 92.4%;
+        height: 6vw;
+    }
+}

@@ -1,0 +1,10 @@
+.user{
+cursor: pointer;
+margin: 1vh 0;
+}
+
+.user:hover{
+    cursor: pointer;
+    background-color: green;
+    color: black;
+}

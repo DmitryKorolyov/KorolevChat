@@ -1,0 +1,29 @@
+#wrapper{
+    text-align: center;
+    padding-top:5vh;  
+}
+
+#title{
+    text-align: center;
+}
+
+#text{
+    width: 70vw;
+    margin: 0 auto;
+    font-size: 0.6em;
+    text-align: left;
+}
+
+/* #buttonWrapper{
+
+} */
+
+.button{
+    display: inline;
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: green;
+    color: black;
+}

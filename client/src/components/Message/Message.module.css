@@ -1,0 +1,81 @@
+.message{
+    /* display: inline; */
+    font-size: 0.5em;
+    width: 60%;
+    padding: 0.5vw;
+    /* margin: 0.5vw; */
+    background-color: rgba(0,0,0,0.3);
+    border: 1px solid green;
+    border-bottom: none;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    /* margin: 0.7vh 0; */
+    /* margin: 5px 0; */
+}
+
+
+.first{
+    border-bottom: none;
+}
+
+.middle{
+    border-style: none solid none solid;
+    border-radius: 0;
+}
+
+.last{
+    border-style: none solid solid solid;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    margin-bottom: 7px;
+}
+
+.single{
+    border-style: solid;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.date{
+    text-align: right;
+    font-size: 0.5em;
+}
+
+.own{
+    align-self: flex-end;
+}
+
+.outer{
+    align-self: flex-start;
+}
+
+.unread{
+    display:flex;
+    flex-direction: column;
+    background-color: rgba(75, 113, 237, 0.4);
+
+
+}
+
+.read{
+    display:flex;
+    flex-direction: column;
+
+    animation-duration: 2.5s;
+    animation-name: melting;
+    animation-iteration-count: initial;
+    animation-direction: alternate;
+
+}
+
+
+@keyframes melting {
+    from {
+        background-color: rgba(75, 113, 237, 0.4);
+    }
+    to {
+        background-color: rgba(0, 128, 0 , 0);
+    }
+    }

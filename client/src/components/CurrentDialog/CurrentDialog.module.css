@@ -1,0 +1,198 @@
+.wrapper{
+    max-width: 50%;
+    height: 100vh;
+    /* max-height: 100vh; */
+    /* min-height: 30vh; */
+    margin: 0 auto;
+    
+    /* padding-top: 3vh; */
+    border: 0.2vw green;
+    border-style: none solid none solid;
+}
+
+/* .messages{
+    display:flex;
+    flex-direction: column;
+    max-height: 70vh;
+    overflow:auto;
+    padding: 0 1vw 0.1vw 1vw;
+} */
+
+
+
+.senderWrapper{
+    text-align: center;
+    position:relative;
+}
+
+.messageSender{
+    font-size: 0.8em;
+}
+
+.withUnread{
+    font-size: 0.5em;
+    align-self: center;
+    text-align: center;
+    border-top: 2px solid green;
+   
+    animation-duration: 5s;
+    animation-name: borderHiding;
+    animation-iteration-count: initial;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.63,.34,.92,.42);
+
+}
+
+@keyframes borderHiding {
+    from {
+        width: 100%;
+        height: 5vh;
+        opacity: 1;
+    }
+    to {
+        width: 40%;
+        height: 0vh;
+        opacity: 0;
+    }
+    }
+
+
+
+.noUnread{
+    visibility: hidden;
+    height: 0vh;
+    overflow:hidden;
+
+}
+
+.downButtonActive{
+    cursor: pointer;
+    font-size: 0.6em;
+    align-self: center;
+    position: sticky;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.downButtonPassive{
+    display:none;
+}
+
+.dialogHeaderWrapper{
+    width: 98%;
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.1vh solid green;
+    /* box-shadow: 0 3vh 1vh 0 rgba(0,0,0,0.3); */
+    box-shadow: 0px 49px 20px -27px rgba(0, 0, 0, 0.4);
+}
+
+#interlocutorsTitle{
+    font-size: 0.8em;
+    max-width: 70%;
+    overflow-wrap:break-word;
+    
+}
+
+#backButton{
+    display: inline-block;
+
+    vertical-align: bottom;
+    cursor: pointer;
+    font-size: 1.8em;
+}
+
+.dropDownContainer{
+    /* background-color: white; */
+    /* padding:0 1.5vw 0 0; */
+    /* text-align: center; */
+
+    position: relative;
+    display: inline-block;
+    
+}
+
+.menuButton{
+    cursor: pointer;
+    font-size: 2em;
+    padding: 0 1vw;
+    
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    transition: 0.5s background-color;
+}
+
+.activatedMenuButton{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dropDownContent{
+    font-size: 0.5em;
+    /* right:1.5vw; */
+    right: 0vw;
+    display: block;
+    position: absolute;
+    
+    background-color: rgba(0, 0, 0, 0.5);
+
+    animation-duration: 0.5s;
+    animation-name: immersion;
+    animation-iteration-count: initial;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+
+
+}
+
+@keyframes immersion{
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+    }
+
+.menuItem{
+    width: 10vw;
+    text-align: center;
+    /* width: 35vw; */
+    border-top: 1px solid green;
+    padding: 2vh 1vw;
+    cursor: pointer;
+}
+
+.showDropDown{
+    display: block;
+}
+
+
+.link{
+    text-decoration: none;
+    color:green;
+}
+
+@media screen and (max-width: 700px){
+    .wrapper{
+        margin: 0 auto;
+        border: 0.2vw green;
+        border-style: none solid none solid;
+        max-width: 99%;
+    }
+    .smartphoneInputFocusWrapper{
+        margin: 0 auto;
+        border: 0.2vw green;
+        border-style: none solid none solid;
+        /* max-width: 99%; */
+        height: 100vh;
+        /* max-height:90vh; */
+    }
+    .menuItem{
+        width: 35vw;
+    }
+
+}
+

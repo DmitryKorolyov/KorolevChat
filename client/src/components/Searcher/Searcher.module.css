@@ -1,0 +1,10 @@
+.customInput{
+    outline: 0;
+    font-size: 0.8em;
+	color: green;
+    background: rgba(0,0,0,0);
+	border:0.2vw green;
+    border-style: none none solid none;
+
+    
+}
