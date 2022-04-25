@@ -4,7 +4,7 @@ import DialogsPage from "./components/DialogsPage/DialogsPage"
 import {AuthPageContainer}  from "./components/AuthPage/AuthPage"
 import FirstComponentContainer from "./components/testPage"
 //import CurrentDialog from "./components/CurrentDialog/CurrentDialog"
-import CurrentDialogContainer from "./components/CurrentDialog/CurrentDialogContainer"
+import CurrentDialog from "./components/CurrentDialog/CurrentDialog"
 import ConnectContainer from "./components/ConnectContainer"
 import FullscreenMode from "./components/FullscreenMode/FullscreenMode"
 
@@ -20,7 +20,7 @@ export const useRoutes = (isAuthenticated) => {
                 <Routes>
                     <Route path = "/fullscreen" exact element = {<FullscreenMode isAuthenticated = {isAuthenticated}/>} />
                     <Route path = "/dialogs" exact element = {<DialogsPage/>} />
-                    <Route path = "dialogs/current/:dialogId/*" element = {<CurrentDialogContainer/>} />
+                    <Route path = "dialogs/current/:dialogId/*" element = {<CurrentDialog/>} />
                     <Route path="*" element={<Navigate to="/dialogs" />} />
                 </Routes>
             </ConnectContainer>
