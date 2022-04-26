@@ -1,7 +1,5 @@
 .dialog{
     font-size: 0.8em;
-    /* width: 95%; */
-    /* margin: 1vh auto; */
     margin: 1vh 0;
     cursor:pointer;
     background: rgba(0, 0, 0, .3);
@@ -12,7 +10,6 @@
 
 .dialog:hover{
     background: rgba(28, 89, 221, 0.3);
-    /* background: rgba(252, 15, 192, 0.3);  */
     margin-left: 1vw;
 }
 
@@ -31,8 +28,6 @@
     animation-timing-function:linear;
 }
 
-
-
 @keyframes newMessage {
     from {
         box-shadow: 0px 0px 15px rgba(0, 0, 255, 0.9) ;
@@ -40,4 +35,4 @@
     to {
         box-shadow: 0px 0px 0px rgba(0, 0, 255, 0.3);
     }
-    }
+}

@@ -1,14 +1,5 @@
 import React, { useEffect, useRef } from "react"
 
-function sleep(milliseconds) {
-	let t = (new Date()).getTime();
-	let i = 0;
-	while (((new Date()).getTime() - t) < milliseconds) {
-		i++;
-	}
-}
-
-
 export const WithObservation = (Reversibale, callback, css = {unread: undefined, read: undefined}, delay = 0) => {
     const ref = useRef()
     // const [isVisible, setIsVisible] = useState(false)

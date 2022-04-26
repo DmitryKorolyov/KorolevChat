@@ -1,25 +1,13 @@
 class Handler{
     constructor(type, handler){
-        // for (let i in arguments) {console.log(arguments[i])}
         this.type = type
         this.handler = handler
-        // ЭКСПЕРИМЕНТАЛЬНО
         this.handlers = Array.from(arguments).slice(1)
-
     }
-
-    // executeHandlers = (req, res) => {
-    //     for (let i in this.handlers){
-    //         console.log(i)
-    //         [req, res] = this.handlers[i](req, res)
-    //     }
-    // }
 
     recursiveHandlersExecute = async (i, req, res) => {
         try{
             let [handledReq, HandledRes] = await this.handlers[i](req, res)
-            
-            console.log(handledReq)
             this.recursiveHandlersExecute(i + 1, handledReq, HandledRes)
         }
         catch{
@@ -46,9 +34,6 @@ class Handler{
 
     handle = (req, res) => {
         if (this.canHandle(req)){
-            // СТАБИЛЬНО:
-            // this.handler(req, res)
-            // ЭКСПЕРИМЕНТАЛЬНО:
             this.recursiveHandlersExecute(0, req, res)
             
         }
@@ -57,8 +42,6 @@ class Handler{
         }
     }
 }
-
-
 
 class ResponsibilityChain{
     constructor(){
@@ -77,7 +60,6 @@ class ResponsibilityChain{
     }
 
 }
-
 
 
 module.exports = new ResponsibilityChain()

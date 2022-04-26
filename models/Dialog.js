@@ -7,6 +7,4 @@ const scheme = Schema({
     creator: {type: Types.ObjectId, ref: 'User'}
 })
 
-
-
 module.exports = model('Dialog', scheme)

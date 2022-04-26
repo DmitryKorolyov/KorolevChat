@@ -6,6 +6,4 @@ const scheme = Schema({
     lastReadMessage: {type: Types.ObjectId, ref: 'Message'}
 })
 
-
-
 module.exports = model('Participant', scheme)

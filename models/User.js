@@ -6,6 +6,4 @@ const scheme = Schema({
 
 })
 
-
-
 module.exports = model('User', scheme)

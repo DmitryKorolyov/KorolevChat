@@ -1,6 +1,3 @@
-
-
-
 export const authorizeAPI = {
     baseURL: "http://192.168.1.51:5000/api/",
     register: async function(email, password){
@@ -17,7 +14,6 @@ export const authorizeAPI = {
         const response = await fetch(`${this.baseURL}auth/login`,{
             method: 'POST', 
             body: JSON.stringify({email, password}),
-            // mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             }

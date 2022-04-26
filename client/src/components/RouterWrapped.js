@@ -11,7 +11,6 @@ export const RouterWrapped = () => {
             <Routes>
                 <Route path = "/" exact element = {<AuthPage/>} />
                 <Route path = "/dialogs" exact element = {<DialogsPage/>} />
-                {/* <Route path = "/dialogs/current" element = {<CurrentDialog/>} /> */}
             </Routes>
         </div>
     )

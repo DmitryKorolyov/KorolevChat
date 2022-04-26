@@ -1,9 +1,4 @@
-import React from "react";
+import React from "react"
+import css from './Preloader.module.css'
 
-export const Preloader = () => {
-    return (
-        <div>
-            <p>Загрузка...</p>
-        </div>
-    )
-}
+export const Preloader = () => <div className = {css.title}>Загрузка...</div>

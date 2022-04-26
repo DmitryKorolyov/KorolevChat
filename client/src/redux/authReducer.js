@@ -1,7 +1,5 @@
 import {authorizeAPI} from '../DAL/authAPI'
-
 import {raiseErrorCreator} from './errorReducer'
-
 
 const AUTHORIZE = 'AUTHORIZE'
 const LOADING_STATUS_CHANGING = 'LOADING_STATUS_CHANGING'
@@ -15,7 +13,6 @@ let initialState = {
     userId: '',
     loading: false,
     nickname: ''
-
 }
 
 const authReducer = (state = initialState, action) => {
@@ -40,12 +37,12 @@ const authReducer = (state = initialState, action) => {
 
 export default authReducer
 
-
 export const authDataCreator = (token, userId, nickname) => ({type: AUTHORIZE, token, userId, nickname})
 
 export const loadingStatusCreator = (status) => ({type: LOADING_STATUS_CHANGING, status})
 
 export const authStatusCreator = (status) => ({type: AUTH_STATUS, status})
+
 
 export const registerThunkCreator = (email, password) => {
     return async (dispatch) => {
@@ -67,7 +64,6 @@ export const registerThunkCreator = (email, password) => {
 export const loginThunkCreator = (email, password) => {
     return async (dispatch) => {
         const data = await authorizeAPI.login(email, password)
-        // debugger
         if (data.type == 'ERROR'){
             return dispatch(raiseErrorCreator(data.errorInfo))
         }
@@ -79,8 +75,6 @@ export const loginThunkCreator = (email, password) => {
             jwtToken: data.token,
             nickname: data.nickname
         }))
-    
-        // dispatch(authDataCreator(data.jwtToken, data.userId, data.nickname))
     }
 }
 

@@ -5,6 +5,4 @@ const scheme = Schema({
     secondName: {type: String, required: true}
 })
 
-
-
 module.exports = model('Room', scheme)

@@ -5,7 +5,6 @@ let initialState = {
     errorInfo: ''
 }
 
-
 const errorReducer = (state = initialState, action) => {
     switch (action.type){
         case CLEAR_ERROR:
@@ -21,11 +20,9 @@ const errorReducer = (state = initialState, action) => {
                 errorInfo: action.errorInfo
             }
         default:
-            return {...state}
-        
+            return {...state}   
     }
 }
-
 
 export default errorReducer
 

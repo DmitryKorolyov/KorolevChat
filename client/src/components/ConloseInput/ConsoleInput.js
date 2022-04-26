@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react"
 import css from './ConsoleInput.module.css'
 
-
 export const ConsoleInput = (props) => {
     const inputEl = useRef(null);
+
     const hiddenInputHandler = (event) => {
         
         if (event.target.value.slice(-2) == '\\'){
@@ -13,8 +13,9 @@ export const ConsoleInput = (props) => {
             setChar(event.target.value)
         }
     }
-    // window.removeEventListener('keydown', handler)
+
     const [input, setChar] = useState("")
+
     const handler = (event) => {
         if (["ArrowLeft", "ArrowRight"].indexOf(event.key) > -1) {
             event.preventDefault()
@@ -37,18 +38,12 @@ export const ConsoleInput = (props) => {
         }
     }
     
-    console.log(props.method)
-    // useEffect(() => {window.addEventListener('keydown', (event) => { console.log(event) })},[])
-    useEffect(() => {window.addEventListener('keydown', handler)}, [])
-
     useEffect(() => {
-
-        inputEl.current.focus()    
+        window.addEventListener('keydown', handler)
+        inputEl.current.focus()
     }, [])
 
-    
-    return <div  className = {`${css.input} ${css.glitchText}`}>
-        
+    return <div  className = {`${css.input} ${css.glitchText}`}>        
         <div >{props.title}</div>
         <div className ={css.inputText}>&rsaquo;:{props.isPassword ? input.replace(/./g, '*') : input}<div className = {css.carriage}>█</div></div>
         <input className = {css.hiddenInput} onBlur = {() => {inputEl.current.focus()}} ref = {inputEl} onChange = {hiddenInputHandler} type ='text'></input>

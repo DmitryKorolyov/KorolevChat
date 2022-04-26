@@ -1,14 +1,8 @@
 import React, {useEffect} from "react"
 import css from './Grain.module.css'
 
-
-
 export default (props) => {
-    const startNoise = () => {
-        'use strict';
-    
-        console.clear();
-        
+    const startNoise = () => {    
         class Grain {
           constructor (el) {
             /**
@@ -100,7 +94,6 @@ export default (props) => {
             window.requestAnimationFrame(this.loop);
           }
         }
-        
         
         /**
          * Initiate Grain

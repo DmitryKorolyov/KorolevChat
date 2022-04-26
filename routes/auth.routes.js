@@ -4,11 +4,8 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-// const createError = require('http-errors')
-
 const config = require('config')
 const User = require('../models/User')
-
 const router = Router()
 
 router.get('/test',
@@ -20,8 +17,7 @@ router.get('/test',
             res.status(500).json({message: 'Ошибка!'})
             console.log(`Ошибка ${e}`)
         }
-    })
-
+})
 
 router.post(
     '/login',
@@ -49,7 +45,6 @@ router.post(
             const token = jwt.sign(
                 {userId: user.id},
                 config.get('JWTSecret'),
-                // {expiresIn: '24h'}
                 {expiresIn: '365d'}
             )
             res.json({token, userId: user.id, nickname: user.email})
@@ -58,9 +53,6 @@ router.post(
             res.status(500).json({type: 'ERROR', errorInfo: 'Ошибка!'})
             console.log(`Ошибка ${e}`)
         }
-
-
-
     })
 
 router.post(
@@ -77,7 +69,6 @@ router.post(
                 return res.status(400).json({type: 'ERROR', errorInfo: 'Некорректные данные при регистрации!'})    
             }
 
-
             const {email, password} = req.body
             const candidate = await User.findOne({email})
             if (candidate) {
@@ -88,7 +79,6 @@ router.post(
             await newUser.save()
 
             const user = await User.findOne({email})
-            console.log(user)
             const token = jwt.sign(
                 {userId: user.id},
                 config.get('JWTSecret'),

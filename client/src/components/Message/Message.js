@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import { connect } from "react-redux"
-import { useParams } from 'react-router-dom'
 import { WithObservation } from '../../HOCs/withObservation'
 import { setLastReadCreator } from '../../redux/dialogsReducer'
 import css from './Message.module.css'
-
 
 const PresentationalMessage = ({current, prev, next, me}) => {
     const normalizeTime = (num) => num.length == 2 ? num : '0' + num  
@@ -41,34 +39,7 @@ const PresentationalMessage = ({current, prev, next, me}) => {
     }
 }
 
-
-
-// const PresentationalMessage2 = (props) => {
-//     const getTime = (timeStamp) => {
-//         const date = new Date(Number(timeStamp))
-//         return `${date.getHours()}:${date.getMinutes()}`
-//     }
-
-//     if (typeof prev == 'undefined'){
-//         prev = {sender: undefined}
-//     }
-//     if (typeof next == 'undefined'){
-//         next = {sender: undefined}
-//     }
-
-//     return <fieldset className = {`${}`}>
-
-//     </fieldset>
-// }
-
-
-
-
-
-
-
 const ContainerMessage = (props) => {
-        // if (props.current.order > props.lastReadMessage) {
         if (props.unread){
             return WithObservation(
                 PresentationalMessage,
@@ -93,5 +64,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const Message = connect(mapStateToProps, mapDispatchToProps)(ContainerMessage)
-
-// export const ObservableMessage = connect(mapStateToProps, mapDispatchToProps)(WithObservation(PresentationalMessage, () => {PresentationalMessage.setLastRead(PresentationalMessage.order)}))

@@ -9,7 +9,6 @@ export const dialogsAPI = {
             }
         })
         return await response.json()
-
     },
     createDialog: async function(id, token){
         const response = await fetch(`${this.baseURL}dialogs/create`, {
@@ -26,15 +25,12 @@ export const dialogsAPI = {
     receiveDialogMessages: async function(dialogId, token){
         const response = await fetch(`${this.baseURL}dialogs/messages?${new URLSearchParams({id: dialogId})}`, {
             method: 'GET',
-            // params: JSON.stringify({id: dialogId}),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
-
         return response.json()
-
     }
 
 }

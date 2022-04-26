@@ -1,21 +1,18 @@
 const WSMiddleware = require('./responsibilityChain')
-
 const jwt = require('jsonwebtoken')
 const config = require('config')
-
-const User = require('../models/User')
-const Dialog = require('../models/Dialog')
-const Participant = require('../models/Participant')
-const Message = require('../models/Message')
+const User = require('../../models/User')
+const Dialog = require('../../models/Dialog')
+const Participant = require('../../models/Participant')
+const Message = require('../../models/Message')
+const Security = require('./Security')
 
 WSMiddleware.useIfType(
     'SEND_MESSAGE',
+    Security.handleReq.bind(Security),
     async (req, res) => {
-        console.log('SEND_MESSAGE-middleware')
-        //проверка авторизации
-        //console.log({type: 'NEW_MESSAGE', sender: res.getUserId(), text: req.message, date: req.date.toString()})
+        console.log('SEND_MESSAGE')
         const date = req.date.toString()
-        console.log('Принято сообщение ' + req.message)
         const message = await new Message({
             roomId: res.getCurrentDialog(),
             userId: res.getUserId(),
@@ -29,8 +26,6 @@ WSMiddleware.useIfType(
         currentDialog.save()
 
         const nickName = await User.findById(res.getUserId()).select('email -_id')
-        console.log(nickName)
-        console.log({type: 'NEW_MESSAGE', dialogId: res.getCurrentDialog(), payload: {sender: nickName.email, text: req.message, date}})
         res.multicast(JSON.stringify({
             type: 'NEW_MESSAGE', 
             dialogId: res.getCurrentDialog(), 
@@ -66,14 +61,8 @@ WSMiddleware.useIfType(
         }
         res.setCurrentDialog(req.id)
         res.setBroadcastConnections(idList)
-
-
-
-
-        // res.send(JSON.stringify({type: 'NEW_MESSAGE', message:'Записано в кастомном middleware'}))
     }
 )
-
 
 WSMiddleware.useIfType(
     'FIND_USER',
@@ -100,8 +89,7 @@ WSMiddleware.useIfType(
         res.sendById(req.interlocutorId , JSON.stringify({
             type: 'OUTSIDE_DIALOG_ADDITION', 
             dialogId: req.dialogId,
-            interlocutor: me.email,
-            // time: Date.now().toString()
+            interlocutor: me.email
         }))
     }
 )
@@ -110,11 +98,8 @@ WSMiddleware.useIfType(
     'ADD_INTERLOCUTOR',
     async (req, res) => {
         const dialog = await Dialog.findById(req.dialogId)
-        console.log('КАК ЖЕ Я ЗАЕБАЛСЯ')
-        console.log(dialog)
 
-        if (res.getUserId() == dialog.creator){ 
-            
+        if (res.getUserId() == dialog.creator){             
             const newParticipant = await new Participant({
                 user: req.userId,
                 room: req.dialogId
@@ -124,10 +109,7 @@ WSMiddleware.useIfType(
             const newParticipantData = await User.findById(req.userId)
             dialog.interlocutors.push(newParticipantData.email)
             dialog.save()
-            console.log('-=-=-=-=-=-===')
-            console.log(dialog.interlocutors)
             res.addNewConnectionInOutsideBroadcasts(req.dialogId, newParticipant.user)
-            console.log('ФЛАГ')
             res.multicast(JSON.stringify({type: 'ADD_INTERLOCUTOR_OK', dialogId: req.dialogId, interlocutor: newParticipantData.email}))
         }
         else res.send(JSON.stringify({type: 'ERROR', errorInfo: 'ТОЛЬКО СОЗДАТЕЛЬ БЕСЕДЫ МОЖЕТ ДОБАВЛЯТЬ УЧАСТНИКОВ'}))
@@ -135,13 +117,11 @@ WSMiddleware.useIfType(
 )
 
 
-
 WSMiddleware.useIfType(
-    'AUTH_RES',//ПЕРЕИМЕНОВАТЬ В ИНИЦИАЛИЗАЦИЮ
+    'AUTH_RES',
     async (req, res) => {
         const decrypted = jwt.verify(req.jwtToken, config.get('JWTSecret'))
         res.associateConnection(decrypted.userId)
-        //
         let dialogsIdList = []
         const dialogs = await Participant.find({user: decrypted.userId})
         for (dialogLabel in dialogs) {
@@ -151,9 +131,6 @@ WSMiddleware.useIfType(
         res.send(JSON.stringify({type: 'NEW_SERVER_MESSAGE', message:'Соединение ассоциировано'}))
     }
 )
-
-
-
 
 module.exports = WSMiddleware
 

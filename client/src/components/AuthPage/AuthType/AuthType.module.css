@@ -13,7 +13,6 @@
     animation-direction: alternate;
 }
 
-
 @keyframes textflicker {
 from {
  text-shadow: 0 0 4px green;

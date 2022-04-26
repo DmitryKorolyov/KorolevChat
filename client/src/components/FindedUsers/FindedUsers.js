@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { startDialogWithThunkCreator } from "../../redux/dialogsReducer";
-import commonCss from '../../App.module.css'
 import css from './FindedUsers.module.css'
 
 export const FindedUsers = (props) => {
@@ -17,9 +16,6 @@ const mapStateToProps = (state) => {
         }
     
 }
-
-
-
 
 const mapDispatchToProps = (dispatch) => {
     return {

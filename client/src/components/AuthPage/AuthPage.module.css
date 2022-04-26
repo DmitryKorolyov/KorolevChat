@@ -1,13 +1,6 @@
-/* .glitchText{
-
-} */
-
 .wrapper{
-    max-width: 99%;
-    
+    max-width: 99%;  
     margin: 0 auto;
-    
-    
 }
   
 .KorolevChat{
@@ -30,27 +23,16 @@
     font-size: 1.2vw;
 } 
 
-/* .neonText {
-    font-family: "PTMono";
-    font-weight: bold;
-    color: green;
-    text-shadow: 0 0 7px green;
-} */
-
-.text {
-    /* display: block; */
-    /* font-size: 1.5em; */
+.text{
     font-family: "PTMono";
     font-weight: bold;
     color: green;
     text-shadow: 0 0 4px green;
-    
     border: none;
-    /* border-bottom: 2px solid green; */
     background-color: transparent;
     color: inherit;
     outline: none;
-  }
+}
 
 .text_input::before{
     content: "qwerty";
@@ -60,24 +42,12 @@
     display: block;
 }
 
-
-
 .glitchText { 
     animation-duration: 0.05s;
     animation-name: textflicker;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
-
-/*
-@keyframes textflicker {
-from {
- text-shadow: 1px 0 0 green, -2px 0 0 green;
-}
-to {
- text-shadow: 2px 0.5px 2px green, -1px -0.5px 2px green;
-}
-} */
 
 @keyframes textflicker {
     from {
@@ -86,13 +56,6 @@ to {
     to {
      text-shadow: 2px 0.5px 5px green;
      margin-left: 1px;
-    }
-    }
-
-
-@media screen and (min-width: 700px){
-    .KorolevChat{
-        font-size: 2vw;
     }
 }
 

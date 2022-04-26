@@ -2,17 +2,10 @@
     max-width: 50%;
     box-sizing: border-box;
     transition:max-height 0.5s ease-out;
-    /* height:auto; */
-    /* max-height: 70vh; */
     padding: 1vw;
     margin:0 auto;
-    /* margin-top: 1.5vh; */
     border: 0.1em green;
     border-style: none solid none solid;
-    /* overflow: auto; */
-
-    
-
 }
 
 .title{
@@ -29,7 +22,7 @@
     max-width: 46.8%;
     margin:0 auto;
     height: 3vw;
-    transform: skew(-45deg); /* Equal to skewX(10deg) */
+    transform: skew(-45deg);
     border: 0.1em green;
     border-style: none none none solid;
 }
@@ -38,7 +31,7 @@
     max-width: 46.9%;
     margin:0 auto;
     height: 3vw;
-    transform: skew(-45deg); /* Equal to skewX(10deg) */
+    transform: skew(-45deg); 
     border: 0.1em green;
     border-style: none solid none none;
 }
@@ -53,15 +46,6 @@
     height: 7vh;
     margin-bottom: 4vh;
 }
-
-/* 
-.titleContainer{
-    margin: 50px 50px;
-}
-
-.buttonContainer{
-    margin: 50px 50px;
-} */
 
 .titleSize{
     text-align: center;
@@ -87,8 +71,6 @@
 	border:0.2vw green;
     border-style: none none solid none;
     margin-bottom: 1vh;
-
-    
 }
 
 

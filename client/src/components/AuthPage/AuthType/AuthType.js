@@ -2,8 +2,6 @@ import React, { useEffect, useState, useCallback } from "react"
 import css from './AuthType.module.css'
 import commonCss from '../AuthPage.module.css'
 
-
-
 const AuthType = (props) => {
     const handler = (event) => {
         switch (event.key){
@@ -24,8 +22,6 @@ const AuthType = (props) => {
     const options = ['Вход', 'Регистрация']
     useEffect(() => {window.addEventListener('keydown', handler)}, [])
     
-    
-
     return <div className = {`${commonCss.text} ${css.glitchText}`}>
         {options.map(option => <div onClick={() => {props.enter(option); window.removeEventListener('keydown', handler)}} onMouseOver = {() => {setHighlighted(options.indexOf(option))}} className = {`${css.glitchText} ${commonCss.text} ${(options[highlighted] == option) ? css.active: ''}`}>{option}</div>)}
     </div>

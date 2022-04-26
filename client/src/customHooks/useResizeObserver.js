@@ -11,6 +11,7 @@ export const useResizeObserver = (callback, element) => {
         })
         resizeObserver.observe(element)
     }, [])
+    
     return [isViewResized, startObserving]
 
 }

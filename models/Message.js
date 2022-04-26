@@ -7,6 +7,4 @@ const scheme = Schema({
     date: {type: String, required: true}
 })
 
-
-
 module.exports = model('Message', scheme)

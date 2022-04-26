@@ -69,21 +69,6 @@ const dialogsReducer = (state = initialState, action) => {
                     ]
                 }
             }
-        // return {
-        //     ...state,
-        //     currentDialog:{
-        //         ...state.currentDialog,
-        //         messages: [
-        //             ...state.currentDialog.messages,
-        //             {
-        //                 sender: action.sender,
-        //                 text: action.text,
-        //                 date: action.date
-        //             }
-        //         ]
-        //     }
-        //                     }
-        
         }
         case CLIENT_READ:
             return {
@@ -111,7 +96,6 @@ const dialogsReducer = (state = initialState, action) => {
                     ...state,
                     dialogsList: action.dialogs
                 }
-            //case SET_CURRENT_DIALOG:
             case LOADED_DIALOG:
                 return{
                     ...state,
@@ -162,8 +146,6 @@ const dialogsReducer = (state = initialState, action) => {
 export default dialogsReducer;
 
 
-// export const conncetionStatusCreator = () => ({type: SET_CO})
-
 export const WSConnectCreator = () => ({type: WS_CONNECT})
 
 export const messageCreator = (message) => ({...message, type: NEW_MESSAGE})
@@ -180,7 +162,6 @@ export const addCreatedDialogCreator = (dialog) => ({dialog, type: CREATED_DIALO
 
 export const openDialogCreator = (dialogId) => ({dialogId, type: OPEN_DIALOG})
 
-//export const setCurrentDialogCreator = (currentDialog) => ({...currentDialog, type: SET_CURRENT_DIALOG})
 export const setLoadedDialogCreator = (dialog) => ({...dialog, type: LOADED_DIALOG})
 
 export const setCurrentDialogCreator = (id) => ({id, type: SET_CURRENT_DIALOG_WS})
@@ -190,10 +171,6 @@ export const sendMessageCreator = (message, dialogId) => ({message, dialogId, ty
 export const setLastReadCreator = (order, messageId, dialogId) => ({order, messageId, dialogId, type: SET_LAST_READ_MESSAGE})
 
 export const dialogStartNotifyCreator = (interlocutorId, dialogId) => ({type: DIALOG_START_NOTIFY, interlocutorId, dialogId})
-
-
-
-
 
 
 export const connectThunkCreator = () => async (dispatch) => {
@@ -216,12 +193,10 @@ export const loadDialogThunkCreator = (id) => async (dispatch) => {
     const currentDialog = await dialogsAPI.receiveDialogMessages(id, authStorage.jwtToken)
 
     dispatch(setLoadedDialogCreator(currentDialog))
-    //dispatch(setCurrentDialogCreatorWS(currentDialog))
 }
 
 export const setCurrentDialogThunkCreator = (id) => (dispatch) => {
     dispatch(setCurrentDialogCreator(id))
-    //dispatch(currentDialogIdCreator(id))
 }
 
 

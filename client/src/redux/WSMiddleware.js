@@ -1,16 +1,11 @@
-import { authResCreator, messageCreator, findedUsersCreator, connectThunkCreator } from "./dialogsReducer";
-import { dialogsAPI } from "../DAL/dialogsAPI";
+import { authResCreator, messageCreator, findedUsersCreator } from "./dialogsReducer";
 import raiseErrorCreator from "./errorReducer"
 
-const authStorageName = 'authLocalStore'
-
 const WS_CONNECT = 'WS_CONNECT'
-const NEW_MESSAGE = 'NEW_MESSAGE'
 const AUTH_RES = 'AUTH_RES'
 const FIND_USER = 'FIND_USER'
 const FINDED_USERS = 'FINDED_USERS'
 const SEND_MESSAGE = 'SEND_MESSAGE'
-const SET_CURRENT_DIALOG = 'SET_CURRENT_DIALOG'
 const SET_CURRENT_DIALOG_WS = 'SET_CURRENT_DIALOG_WS'
 const SET_LAST_READ_MESSAGE = 'SET_LAST_READ_MESSAGE'
 const CLIENT_READ = 'CLIENT_READ'
@@ -18,8 +13,6 @@ const ADD_INTERLOCUTOR = 'ADD_INTERLOCUTOR'
 const ADD_INTERLOCUTOR_OK = 'ADD_INTERLOCUTOR_OK'
 const DIALOG_START_NOTIFY = 'DIALOG_START_NOTIFY'
 const ERROR = 'ERROR'
-
-
 
 export const addInterlocutorCreator = (dialogId, userId) => ({type: ADD_INTERLOCUTOR, dialogId, userId})
 const outsideDialogAdditionCreator = (interlocutor, dialogId) => ({type: 'OUTSIDE_DIALOG_ADDITION', interlocutor, dialogId})
@@ -34,13 +27,11 @@ const WSMiddlewareCreator = () => {
 
     const onClose = store => () => {
       console.log('соединение закрыто')
-        //store.dispatch(actions.wsDisconnected())
+
       }
     
       const onMessage = store => (event) => {
         const payload = JSON.parse(event.data)
-        // console.log('Получение сообщения от сервера')
-        // console.log(payload)
     
         switch (payload.type) {
           case 'NEW_MESSAGE':
@@ -72,10 +63,8 @@ const WSMiddlewareCreator = () => {
               socket.close()
             }
     
-            // connect to the remote host
             socket = new WebSocket('ws://192.168.1.51:9000')
           
-            // websocket handlers
             socket.onmessage = onMessage(store)
             socket.onclose = onClose(store)
             socket.onopen = onOpen(store)
@@ -117,10 +106,6 @@ const WSMiddlewareCreator = () => {
               break
             case DIALOG_START_NOTIFY:
               socket.send(JSON.stringify(action))
-            // case 'NEW_MESSAGE':
-          //   console.log('sending a message', action.message)
-          //   socket.send(JSON.stringify({ type: 'NEW_MESSAGE', message: action.message }))
-          //   break
           default:
             console.log('the next action:', action)
             return next(action)
@@ -129,5 +114,3 @@ const WSMiddlewareCreator = () => {
 }
     
 export default WSMiddlewareCreator()
-
-

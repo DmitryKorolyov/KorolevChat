@@ -1,18 +1,13 @@
 .message{
-    /* display: inline; */
     font-size: 0.5em;
     width: 60%;
     padding: 0.5vw;
-    /* margin: 0.5vw; */
     background-color: rgba(0,0,0,0.3);
     border: 1px solid green;
     border-bottom: none;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-    /* margin: 0.7vh 0; */
-    /* margin: 5px 0; */
 }
-
 
 .first{
     border-bottom: none;
@@ -55,8 +50,6 @@
     display:flex;
     flex-direction: column;
     background-color: rgba(75, 113, 237, 0.4);
-
-
 }
 
 .read{
@@ -70,7 +63,6 @@
 
 }
 
-
 @keyframes melting {
     from {
         background-color: rgba(75, 113, 237, 0.4);
@@ -78,4 +70,4 @@
     to {
         background-color: rgba(0, 128, 0 , 0);
     }
-    }
+}

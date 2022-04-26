@@ -18,28 +18,11 @@ const WrappedApp = (props) => {
         navigate('/fullscreen')
     }, [])
     const routes = useRoutes(props.isAuthenticated)
-    // if (props.loading){
-    //     return <Preloader/>
-    // }
-    // else {
-    // const [isFullScreen, setFullscreenStatus] = useState(false)    
-        return (
-        <div>
-            <Grain/>
-            {routes}
-            {/* {isFullScreen ? routes : <Notice
-                title = 'ВНИМАНИЕ!'
-                text = 'ОТОБРОЖЕНИЕ БУДЕТ ПЕРЕВЕДЕНО В ПОЛНОЭКРАННЫЙ РЕЖИМ. ДЛЯ ПРОДОЛЖЕНИЯ НАЖМИТЕ "ок"'
-                buttonLabel = 'ок'
-                handleClick = {() => { 
-                    if (document.documentElement.requestFullscreen)document.documentElement.requestFullscreen(); 
-                    setFullscreenStatus(true)}
-                }
-            />} */}
-            
-        </div>
-        )
-    //}
+    if (props.loading) return <Preloader/>
+    else return <div>
+        <Grain/>
+        {routes}        
+    </div>
 }
 
 const mapStateToProps = (state) => {

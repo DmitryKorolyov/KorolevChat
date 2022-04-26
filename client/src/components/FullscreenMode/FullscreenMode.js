@@ -11,10 +11,8 @@ const FullscreenMode = (props) => {
         handleClick = {() => { 
             if (document.documentElement.requestFullscreen)document.documentElement.requestFullscreen(); 
             navigate(props.isAuthenticated ? '/dialogs' : '/auth')
-        }
-            
-        }
-/>
+        }}
+    />
 }
 
 export default FullscreenMode
