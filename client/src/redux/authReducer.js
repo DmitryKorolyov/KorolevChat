@@ -4,6 +4,7 @@ import {raiseErrorCreator} from './errorReducer'
 const AUTHORIZE = 'AUTHORIZE'
 const LOADING_STATUS_CHANGING = 'LOADING_STATUS_CHANGING'
 const AUTH_STATUS = 'AUTH_STATUS'
+const CONSENT_GIVEN = 'CONSENT_GIVEN'
 
 const authStorageName = 'authLocalStore'
 
@@ -12,7 +13,8 @@ let initialState = {
     jwtToken: '',
     userId: '',
     loading: false,
-    nickname: ''
+    nickname: '',
+    consent: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -30,6 +32,11 @@ const authReducer = (state = initialState, action) => {
         }
         case AUTH_STATUS:
             return {...state, isAuthenticated: action.status}
+        case CONSENT_GIVEN:
+            return {
+                ...state,
+                consent: true
+            }
         default:
             return {...state}
     }
@@ -42,6 +49,8 @@ export const authDataCreator = (token, userId, nickname) => ({type: AUTHORIZE, t
 export const loadingStatusCreator = (status) => ({type: LOADING_STATUS_CHANGING, status})
 
 export const authStatusCreator = (status) => ({type: AUTH_STATUS, status})
+
+export const consentCreator = () => ({type: CONSENT_GIVEN})
 
 
 export const registerThunkCreator = (email, password) => {

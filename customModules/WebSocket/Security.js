@@ -1,3 +1,9 @@
+/**
+ * 
+ * 
+ * 
+ */
+
 const Security = {
     regexp: new RegExp(/[&<>"']/, 'g'),
     htmlEscapes: {

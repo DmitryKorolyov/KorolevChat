@@ -8,6 +8,7 @@ import AuthType from './AuthType/AuthType'
 import Title from '../Title/Title'
 import Notice from '../Notice/Notice'
 import withErrorHandler from '../../HOCs/withErrorHandler'
+import {consentCreator} from '../../redux/authReducer'
 
 export const AuthPage = (props) => {
     const initialState = {
@@ -47,24 +48,25 @@ export const AuthPage = (props) => {
             {props.userId}
             <div>
                 {(state.authorizeMethod == '') && (state.nickname == '') && <AuthType enter = {(method) => {dispatch({type: 'AUTHORIZE_METHOD', method})}}/>}
-                {(state.authorizeMethod !== '') && (state.nickname == '') && <ConsoleInput 
+                {(state.authorizeMethod == 'Регистрация')  && (!props.consent) && <Notice
+                    title = 'ПРЕДУПРЕЖДЕНИЕ'
+                    text = 'В связи с развитием интернета и появлением огромнейшего объёма информации трудно уследить за её правильностью. Поэтому создатели сайтов используют дисклеймеры, чтобы защитить себя от возможных обвинений и претензий со стороны других лиц.Владельцы сайта не несут ответственности за правильность информации, размещённой другими пользователями.А если сайт предназначен только для лиц старше определённого возраста, то дисклеймер будет такой:Внимание! Наполнение сайта предназначено для лиц старше Х лет.'
+                    buttonLabel = 'Продолжить'
+                    handleClick = {() => {props.giveConsent()}}
+                />}
+                {(state.authorizeMethod !== '') && (state.nickname == '') && props.consent && <ConsoleInput 
                     title = {state.authorizeMethod == 'Вход' ? "Введите имя пользователя" : "Придумайте имя пользователя учетной записи"}
                     enter = {(nickname) => {dispatch({type:'NICKNAME', nickname})}} 
                 />}
-                {(state.authorizeMethod !== '') && (state.nickname !== '') && (state.password == '') && <ConsoleInput
+                {(state.authorizeMethod !== '') && (state.nickname !== '') && (state.password == '') && props.consent && <ConsoleInput
                     isPassword = {true}
                     title = {state.authorizeMethod == 'Вход' ? "Введите пароль" : "Придумайте пароль пользователя учетной записи"}
                     enter = {(password) => {
                         dispatch({type:'PASSWORD', password})                        
-                        state.authorizeMethod == 'Вход' && props.login(state.nickname, password) 
+                        state.authorizeMethod == 'Вход' ? props.login(state.nickname, password) : props.register(state.nickname, password) 
                         }} 
                 />}
-                {(state.authorizeMethod == 'Регистрация') && (state.nickname !== '') && (state.password !== '') && <Notice
-                    title = 'ПРЕДУПРЕЖДЕНИЕ'
-                    text = 'В связи с развитием интернета и появлением огромнейшего объёма информации трудно уследить за её правильностью. Поэтому создатели сайтов используют дисклеймеры, чтобы защитить себя от возможных обвинений и претензий со стороны других лиц.Владельцы сайта не несут ответственности за правильность информации, размещённой другими пользователями.А если сайт предназначен только для лиц старше определённого возраста, то дисклеймер будет такой:Внимание! Наполнение сайта предназначено для лиц старше Х лет.'
-                    buttonLabel = 'Продолжить'
-                    handleClick = {() => {props.register(state.nickname, state.password)}}
-                />}
+
             </div>
         </div>
     )
@@ -73,7 +75,8 @@ export const AuthPage = (props) => {
 let mapStateToProps = (state) => {
     return {
         token: state.auth.jwtToken,
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        consent: state.auth.consent
     }
 }
 
@@ -85,6 +88,7 @@ let mapDispatchToProps = (dispatch) => {
         login: (email, password) => {
             dispatch(loginThunkCreator(email, password))
         },
+        giveConsent: () => {dispatch(consentCreator())}
     }
 }
 
