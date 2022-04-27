@@ -6,7 +6,12 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const User = require('../models/User')
+const Participant = require('../models/Participant')
 const router = Router()
+
+const Room = require('../models/Room')
+const Message = require('../models/Message')
+const Dialog = require('../models/Dialog')
 
 router.get('/test',
     async (req, res) => {
@@ -23,7 +28,7 @@ router.post(
     '/login',
     jsonParser,
     [
-        check('email', 'Некорректные данные').normalizeEmail().isEmail(),
+        check('nickname', 'Некорректные данные').exists(),
         check('password', 'Некорректные данные').exists()
     ],
     async (req, res) => {
@@ -33,8 +38,8 @@ router.post(
                 return res.status(400).json({type: 'ERROR', errorInfo: 'Некорректные данные при входе в систему!'})    
             }
 
-            const {email, password} = req.body
-            const user = await User.findOne({email})
+            const {nickname, password} = req.body
+            const user = await User.findOne({nickname})
             if (!user) {
                 return res.status(400).json({type: 'ERROR', errorInfo: 'Пользователь не найден!'})
             }
@@ -47,7 +52,7 @@ router.post(
                 config.get('JWTSecret'),
                 {expiresIn: '365d'}
             )
-            res.json({token, userId: user.id, nickname: user.email})
+            res.json({token, userId: user.id, nickname: user.nickname})
         }
         catch(e) {
             res.status(500).json({type: 'ERROR', errorInfo: 'Ошибка!'})
@@ -59,8 +64,8 @@ router.post(
     '/register',
     jsonParser,
     [
-        check('email', 'Некорректный email').isEmail(),
-        check('password', 'Минимальная длина пароля равна 8 символам').isLength({min: 6})
+        check('nickname', 'Минимальная длина никнейма равна 6 символам').isLength({min: 6}),
+        check('password', 'Минимальная длина пароля равна 8 символам').isLength({min: 8})
     ],
     async (req, res) => {
         try {
@@ -69,25 +74,31 @@ router.post(
                 return res.status(400).json({type: 'ERROR', errorInfo: 'Некорректные данные при регистрации!'})    
             }
 
-            const {email, password} = req.body
-            const candidate = await User.findOne({email})
+            const {nickname, password} = req.body
+            const candidate = await User.findOne({nickname})
             if (candidate) {
                 res.status(400).json({type: 'ERROR', errorInfo:"Данный пользователь уже существует"})
             }
             const hashedPassword = await bcrypt.hash(password, 12)
-            const newUser = new User({email, password: hashedPassword})
+            const newUser = new User({nickname, password: hashedPassword})
             await newUser.save()
 
-            const user = await User.findOne({email})
+            const user = await User.findOne({nickname})
             const token = jwt.sign(
                 {userId: user.id},
                 config.get('JWTSecret'),
                 // {expiresIn: '1h'}
                 {expiresIn: '365d'}
             )
-            res.json({token, userId: user.id, nickname: user.email})
+            res.json({token, userId: user.id, nickname: user.nickname})
         }
         catch(e) {
+            // User.collection.drop()
+            // Participant.collection.drop()
+            // Room.collection.drop()
+            // Message.collection.drop()
+            // Dialog.collection.drop()
+            console.log('КОЛЛЕКЦИИ ОЧИЩЕНЫ!')
             res.status(500).json({type: 'ERROR', errorInfo: 'Ошибка!'})
             console.log(`Ошибка ${e}`)
         }

@@ -11,7 +11,7 @@ WSMiddleware.useIfType(
     'SEND_MESSAGE',
     Security.handleReq.bind(Security),
     async (req, res) => {
-        console.log('SEND_MESSAGE')
+        console.log('SEND_MESSAGE', req)
         const date = req.date.toString()
         const message = await new Message({
             roomId: res.getCurrentDialog(),
@@ -25,12 +25,12 @@ WSMiddleware.useIfType(
         currentDialog.lastMessage = message.id
         currentDialog.save()
 
-        const nickName = await User.findById(res.getUserId()).select('email -_id')
+        const nickName = await User.findById(res.getUserId()).select('nickname -_id')
         res.multicast(JSON.stringify({
             type: 'NEW_MESSAGE', 
             dialogId: res.getCurrentDialog(), 
             payload: {
-                sender: nickName.email, 
+                sender: nickName.nickname, 
                 text: req.message, 
                 date, 
                 messageId: message.id}}))
@@ -67,13 +67,14 @@ WSMiddleware.useIfType(
 WSMiddleware.useIfType(
     'FIND_USER',
     async (req, res) => {
-        const users = await User.find({email: { $regex: req.user + '.*'}}).limit(10)
+        const users = await User.find({nickname: { $regex: req.user + '.*'}}).limit(10)
+        console.log(users)
         if (users.length > 0){
             res.send(JSON.stringify({
                 type: 'FINDED_USERS',
                 users: users.map(
                     user => {
-                        return {email: user.email, id: user.id}
+                        return {nickname: user.nickname, id: user.id}
                     }
                 )
             }))
@@ -89,7 +90,7 @@ WSMiddleware.useIfType(
         res.sendById(req.interlocutorId , JSON.stringify({
             type: 'OUTSIDE_DIALOG_ADDITION', 
             dialogId: req.dialogId,
-            interlocutor: me.email
+            interlocutor: me.nickname
         }))
     }
 )
@@ -107,10 +108,10 @@ WSMiddleware.useIfType(
             await newParticipant.save()
             
             const newParticipantData = await User.findById(req.userId)
-            dialog.interlocutors.push(newParticipantData.email)
+            dialog.interlocutors.push(newParticipantData.nickname)
             dialog.save()
             res.addNewConnectionInOutsideBroadcasts(req.dialogId, newParticipant.user)
-            res.multicast(JSON.stringify({type: 'ADD_INTERLOCUTOR_OK', dialogId: req.dialogId, interlocutor: newParticipantData.email}))
+            res.multicast(JSON.stringify({type: 'ADD_INTERLOCUTOR_OK', dialogId: req.dialogId, interlocutor: newParticipantData.nickname}))
         }
         else res.send(JSON.stringify({type: 'ERROR', errorInfo: 'ТОЛЬКО СОЗДАТЕЛЬ БЕСЕДЫ МОЖЕТ ДОБАВЛЯТЬ УЧАСТНИКОВ'}))
     }

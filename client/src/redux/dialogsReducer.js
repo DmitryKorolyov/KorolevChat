@@ -23,7 +23,7 @@ const authStorageName = 'authLocalStore'
 let initialState = {
     isConnected: false,
     findedUsers: [{
-        email: '',
+        nickname: '',
         id: ''}],
     dialogsList: [{
         id: '',

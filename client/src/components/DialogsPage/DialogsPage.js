@@ -32,7 +32,7 @@ const DialogsPage = (props) => {
             </header>
             <div className = {css.topBevel}></div>
             <main className = {css.wrapper}>
-                <label>&rsaquo;:<input placeholder = 'Поиск пользователя' type = "text" class = "field" name = "email" onChange = {changeHandler} className = {css.customInput}></input></label>
+                <label>&rsaquo;:<input placeholder = 'Поиск пользователя' type = "text" class = "field" name = "nickname" onChange = {changeHandler} className = {css.customInput}></input></label>
                 <div className = {css.title}>Диалоги: </div>
                 <div className = {css.dialogsWrapper}>{currentComponent}</div>
             </main>
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
             logout: () => {dispatch(logoutThunkCreator())},
             connect: () => {dispatch(connectThunkCreator())},
-            findUser: (email) => {dispatch(findUserCreator(email))},
+            findUser: (nickname) => {dispatch(findUserCreator(nickname))},
             startDialogWith: (id) => {dispatch(startDialogWithThunkCreator(id))},
             sendMessage: (msg) => {dispatch(messageCreator(msg))}
         }

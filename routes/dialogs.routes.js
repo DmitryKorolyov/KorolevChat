@@ -21,14 +21,14 @@ router.post(
             const dialogCreator = await User.findById(req.user.userId)
             const interlocutor = await User.findById(req.body.id)
             
-            const possiblyExisting = await Dialog.findOne({ interlocutors: [dialogCreator.email, interlocutor.email] })
-            console.log(possiblyExisting)
+            const possiblyExisting = await Dialog.findOne({ interlocutors: [dialogCreator.nickname, interlocutor.nickname] })
+            console.log('possiblyExisting', possiblyExisting)
             if (possiblyExisting){
                 res.status(400).json({message: 'Такой диалог уже существует!'})
             }
             else {
                 const dialog = await new Dialog({
-                     interlocutors: [dialogCreator.email, interlocutor.email],
+                     interlocutors: [dialogCreator.nickname, interlocutor.nickname],
                     createTime: Date.now(),
                     creator: req.user.userId
                     })
@@ -52,7 +52,7 @@ router.post(
                 console.log(interlocutor)
                 res.json({
                     id: dialog.id,
-                    interlocutors: dialog.interlocutors.filter(interlocutor => interlocutor != dialogCreator.email)})
+                    interlocutors: dialog.interlocutors.filter(interlocutor => interlocutor != dialogCreator.nickname)})
             }
         }
         catch(e) {
@@ -67,7 +67,7 @@ router.get(
     auth,
     async (req, res) => {
         try{
-            const user = await User.findById(req.user.userId).select('email -_id')
+            const user = await User.findById(req.user.userId).select('nickname -_id')
             const dialogs = await Participant.find({user: req.user.userId}).select('room -_id')
             const idList = dialogs.map(record => record.room)
             const responseDialogs = await Promise.all(idList.map(
@@ -95,7 +95,7 @@ router.get(
                     
                     return {
                         id: currentDialog.id,
-                        interlocutors: currentDialog.interlocutors.filter(interlocutor => interlocutor != user.email), 
+                        interlocutors: currentDialog.interlocutors.filter(interlocutor => interlocutor != user.nickname), 
                         lastMessage: currentDialog.lastMessage,
                         lastMessageDate: Number(lastMessageWithDate.date),
                         isNewMessage: lastMessageOrder !== messageIDs.length}
@@ -130,7 +130,7 @@ router.get(
 
             for (let participant in participants){
                 let user = await User.findById(participants[participant].user)
-                nicknames[user.id] = user.email
+                nicknames[user.id] = user.nickname
             }
 
             let interlocutors = []

@@ -6,7 +6,7 @@ import css from './FindedUsers.module.css'
 export const FindedUsers = (props) => {
     return <div>
         <p>Найденные пользователи: </p>
-        {props.findedUsers.map(user => <div className = {css.user} onClick = {() => {props.addInDialog(user.id)}}>{user.email}</div>)}
+        {props.findedUsers.map(user => <div className = {css.user} onClick = {() => {props.addInDialog(user.id)}}>{user.nickname}</div>)}
     </div>
 }
 

@@ -53,9 +53,9 @@ export const authStatusCreator = (status) => ({type: AUTH_STATUS, status})
 export const consentCreator = () => ({type: CONSENT_GIVEN})
 
 
-export const registerThunkCreator = (email, password) => {
+export const registerThunkCreator = (nickname, password) => {
     return async (dispatch) => {
-        const data = await authorizeAPI.register(email, password)
+        const data = await authorizeAPI.register(nickname, password)
         if (data.type == 'ERROR'){
             return dispatch(raiseErrorCreator(data.errorInfo))
         }
@@ -70,9 +70,9 @@ export const registerThunkCreator = (email, password) => {
     }
 }
 
-export const loginThunkCreator = (email, password) => {
+export const loginThunkCreator = (nickname, password) => {
     return async (dispatch) => {
-        const data = await authorizeAPI.login(email, password)
+        const data = await authorizeAPI.login(nickname, password)
         if (data.type == 'ERROR'){
             return dispatch(raiseErrorCreator(data.errorInfo))
         }

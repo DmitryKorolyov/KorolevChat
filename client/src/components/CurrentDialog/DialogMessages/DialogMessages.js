@@ -45,7 +45,7 @@ const DialogMessages = (props) => {
             )
             observer.observe(endRef.current.previousElementSibling.previousElementSibling)
             if (!isScrolled) {
-                toUnreadRef.current.className = (props.dialog.length !== memorizedLastReadOrder && props.dialog.length !== 2 && props.dialog.length !== 3) ? css.withUnread : css.noUnread
+                toUnreadRef.current.className = (props.dialog.length !== memorizedLastReadOrder && props.dialog.length > 3) ? css.withUnread : css.noUnread
                 toUnreadRef.current.scrollIntoView({block: "center", behavior: "smooth"})
                 setInterval( () => {setIsScrolled(true)}, 1000)
                     
@@ -123,7 +123,7 @@ const DialogMessages = (props) => {
             placeholder = 'Введите сообщение' 
             spellcheck="false" 
             className = {css.textField} 
-            name = "email" 
+            name = "nickname" 
             onChange = {changeHandler}> 
         </textarea>
             <div id = {css.sendButton} onClick = {sendMessage} >&#187;</div> 

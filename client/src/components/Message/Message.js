@@ -20,7 +20,7 @@ const PresentationalMessage = ({current, prev, next, me}) => {
     }
     else if ((current.sender !== prev.sender) && (current.sender == next.sender)) {
         return <fieldset className = {`${css.message} ${css.first} ${(current.sender == me) ? css.own : css.outer}`}>
-                    <legend className = {css.messageSender} align = "center">{current.sender}</legend>
+                    {(current.sender !== me) && <legend className = {css.messageSender} align = "center">{current.sender}</legend>}
                     {current.text}
                     <div className = {css.date}>{getTime(current.date)}</div>
             </fieldset>
