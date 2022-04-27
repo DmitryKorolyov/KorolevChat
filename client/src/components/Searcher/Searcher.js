@@ -17,9 +17,9 @@ const Searcher = (props) => {
     }
 
     return <div>
-        <label>&rsaquo;:<input placeholder = 'Поиск пользователя' type = "text" class = "field" name = "email" onChange = {changeHandler} className = {css.customInput}></input></label>
+        <label>&rsaquo;:<input placeholder = 'Поиск пользователя' type = "text" class = "field" name = "nickname" onChange = {changeHandler} className = {css.customInput}></input></label>
         <FindedUsers 
-            findedUsers = {props.findedUsers.filter(user => (props.alreadyAdded.includes(user.email)) ? false : true)}
+            findedUsers = {props.findedUsers.filter(user => (props.alreadyAdded.includes(user.nickname)) ? false : true)}
             addInDialog = {(userId) => {props.addInDialog(props.dialogId, userId)}}
             />
         
@@ -35,7 +35,7 @@ const mapStateToProps = (state, {alreadyAdded, dialogId}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        findUser: (email) => {dispatch(findUserCreator(email))},
+        findUser: (nickname) => {dispatch(findUserCreator(nickname))},
         addInDialog: (dialogId, userId) => {dispatch(addInterlocutorCreator(dialogId, userId))}
     }
 }

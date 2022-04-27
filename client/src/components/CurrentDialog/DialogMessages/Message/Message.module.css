@@ -11,6 +11,7 @@
 
 .first{
     border-bottom: none;
+    margin-top: 7px;
 }
 
 .middle{
@@ -31,6 +32,7 @@
     border-style: solid;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
+    margin: 7px 0;
 }
 
 .date{

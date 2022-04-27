@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { useRef, useEffect, useState } from "react"
 import css from './DialogMessages.module.css'
-import {Message} from "../../Message/Message"
+import {Message} from "./Message/Message"
 import { sendMessageCreator } from "../../../redux/dialogsReducer"
 import { useResizeObserver } from "../../../customHooks/useResizeObserver"
 

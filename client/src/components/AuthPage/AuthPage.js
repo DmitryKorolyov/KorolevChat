@@ -54,11 +54,11 @@ export const AuthPage = (props) => {
                     buttonLabel = 'Продолжить'
                     handleClick = {() => {props.giveConsent()}}
                 />}
-                {(state.authorizeMethod !== '') && (state.nickname == '') && props.consent && <ConsoleInput 
+                {(state.authorizeMethod !== '') && (state.nickname == '') && (props.consent || state.authorizeMethod == 'Вход') && <ConsoleInput 
                     title = {state.authorizeMethod == 'Вход' ? "Введите имя пользователя" : "Придумайте имя пользователя учетной записи"}
                     enter = {(nickname) => {dispatch({type:'NICKNAME', nickname})}} 
                 />}
-                {(state.authorizeMethod !== '') && (state.nickname !== '') && (state.password == '') && props.consent && <ConsoleInput
+                {(state.authorizeMethod !== '') && (state.nickname !== '') && (state.password == '') && (props.consent || state.authorizeMethod == 'Вход') && <ConsoleInput
                     isPassword = {true}
                     title = {state.authorizeMethod == 'Вход' ? "Введите пароль" : "Придумайте пароль пользователя учетной записи"}
                     enter = {(password) => {
@@ -82,11 +82,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        register: (email, password) => {
-            dispatch(registerThunkCreator(email, password))
+        register: (nickname, password) => {
+            dispatch(registerThunkCreator(nickname, password))
         },
-        login: (email, password) => {
-            dispatch(loginThunkCreator(email, password))
+        login: (nickname, password) => {
+            dispatch(loginThunkCreator(nickname, password))
         },
         giveConsent: () => {dispatch(consentCreator())}
     }

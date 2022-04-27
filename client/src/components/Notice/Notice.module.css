@@ -9,17 +9,24 @@
 
 #text{
     width: 70vw;
-    margin: 0 auto;
+    margin: 1vh auto 5vh auto;
     font-size: 0.6em;
     text-align: left;
 }
 
 .button{
     display: inline;
+    /* margin-top: 20vh; */
 }
 
 .button:hover{
     cursor: pointer;
     background-color: green;
     color: black;
+}
+
+@media screen and (max-width: 700px){
+    #text{
+        width: 95%;
+    }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux"
-import { WithObservation } from '../../HOCs/withObservation'
-import { setLastReadCreator } from '../../redux/dialogsReducer'
+import { WithObservation } from '../../../../HOCs/withObservation'
+import { setLastReadCreator } from '../../../../redux/dialogsReducer'
 import css from './Message.module.css'
 
 const PresentationalMessage = ({current, prev, next, me}) => {
@@ -13,7 +13,7 @@ const PresentationalMessage = ({current, prev, next, me}) => {
 
     if ((current.sender !== prev.sender) && (current.sender !== next.sender)) {
         return <fieldset className = {`${css.message} ${css.single} ${(current.sender == me) ? css.own : css.outer}`}>
-                    <legend className = {css.messageSender} align = "center">{current.sender}</legend>
+                    {(current.sender !== me) && <legend className = {css.messageSender} align = "center">{current.sender}</legend>}
                     {current.text}
                     <div className = {css.date}>{getTime(current.date)}</div>
             </fieldset>

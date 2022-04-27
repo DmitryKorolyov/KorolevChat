@@ -7,6 +7,7 @@ import FindedUsers from "../FindedUsers/FindedUsers";
 import DialogsList from "../DialogsList/DialogsList";
 import css from './DialogsPage.module.css'
 import Title from "../Title/Title";
+import withErrorHandler from "../../HOCs/withErrorHandler";
 
 const DialogsPage = (props) => {
     const [input, setInput] = useState({
@@ -60,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
         }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DialogsPage)
+export default withErrorHandler(connect(mapStateToProps, mapDispatchToProps)(DialogsPage))

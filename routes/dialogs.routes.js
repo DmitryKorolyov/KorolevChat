@@ -24,7 +24,7 @@ router.post(
             const possiblyExisting = await Dialog.findOne({ interlocutors: [dialogCreator.nickname, interlocutor.nickname] })
             console.log('possiblyExisting', possiblyExisting)
             if (possiblyExisting){
-                res.status(400).json({message: 'Такой диалог уже существует!'})
+                res.status(400).json({type: 'ERROR', errorInfo: 'Такой диалог уже существует!'})
             }
             else {
                 const dialog = await new Dialog({
@@ -56,7 +56,7 @@ router.post(
             }
         }
         catch(e) {
-            res.status(500).json({message: e.message})
+            res.status(500).json({type: 'ERROR', errorInfo: e.message})
             console.log(`Ошибка ${e}`)
         }
     }
@@ -148,7 +148,7 @@ router.get(
                 order = messagesIdList.indexOf(lastReadMessage.id) + 1
                 }
             else order = 0
-            
+            console.log('nicknames ', nicknames)
             res.json({
                 id: req.query.id,
                 interlocutors,

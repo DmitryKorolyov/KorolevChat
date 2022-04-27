@@ -1,4 +1,5 @@
 import {dialogsAPI} from '../DAL/dialogsAPI'
+import { raiseErrorCreator } from './errorReducer'
 
 const WS_CONNECT = 'WS_CONNECT'
 const NEW_MESSAGE = 'NEW_MESSAGE'
@@ -183,9 +184,12 @@ export const connectThunkCreator = () => async (dispatch) => {
 
 export const startDialogWithThunkCreator = (id) => async (dispatch) => {
     const authStorage = JSON.parse(localStorage.getItem(authStorageName))
-    const newDialog = await dialogsAPI.createDialog(id, authStorage.jwtToken)
-    dispatch(addCreatedDialogCreator(newDialog))
-    dispatch(dialogStartNotifyCreator(id, newDialog.id))
+    const data = await dialogsAPI.createDialog(id, authStorage.jwtToken)
+    if (data.type == 'ERROR'){
+        return dispatch(raiseErrorCreator(data.errorInfo))
+    }
+    dispatch(addCreatedDialogCreator(data))
+    dispatch(dialogStartNotifyCreator(id, data.id))
 }
 
 export const loadDialogThunkCreator = (id) => async (dispatch) => {

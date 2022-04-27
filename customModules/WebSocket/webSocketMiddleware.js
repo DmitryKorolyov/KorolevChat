@@ -73,9 +73,10 @@ WSMiddleware.useIfType(
             res.send(JSON.stringify({
                 type: 'FINDED_USERS',
                 users: users.map(
-                    user => {
-                        return {nickname: user.nickname, id: user.id}
-                    }
+                    user => (user.id != res.getId()) && {nickname: user.nickname, id: user.id}
+                    // {
+                        // return {nickname: user.nickname, id: user.id}
+                    // }
                 )
             }))
         }
