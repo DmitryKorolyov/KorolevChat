@@ -10,7 +10,9 @@ const PresentationalMessage = ({current, prev, next, me}) => {
         const date = new Date(Number(timeStamp))
         return `${normalizeTime(date.getHours().toString())}:${normalizeTime(date.getMinutes().toString())}`
     }
-
+    // Возвращает сообщение, стилизованное в зависимости от отправителей предыдущего и следующего сообщений
+    // Соседние сообщения одного отправителя визуально объединяются в группу
+    // Сообственные сообщения клиента прижаты к правой стороне ленты всех сообщений и не имеют заголовка с отправителем
     if ((current.sender !== prev.sender) && (current.sender !== next.sender)) {
         return <fieldset className = {`${css.message} ${css.single} ${(current.sender == me) ? css.own : css.outer}`}>
                     {(current.sender !== me) && <legend className = {css.messageSender} align = "center">{current.sender}</legend>}
@@ -39,6 +41,10 @@ const PresentationalMessage = ({current, prev, next, me}) => {
     }
 }
 
+//Каждое непрочитанное сообщение оборачивается HOC-функцией, в результате выполнения которой осуществляется наблюдение сообщения
+//При попадании такого сообщения в область видимости статус сообщения меняется в state посредством обновления последнего прочитанного сообщения  
+//Меняется при попадании в область видимости и стиль сообщения
+//Уже прочитанные сообщения оборачиванию в данный HOC не подвергаются
 const ContainerMessage = (props) => {
         if (props.unread){
             return WithObservation(

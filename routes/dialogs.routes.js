@@ -6,8 +6,6 @@ const Participant = require ('../models/Participant')
 const User = require('../models/User')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const auth = require('../customModules/auth.middleware')
 
 router = new Router()

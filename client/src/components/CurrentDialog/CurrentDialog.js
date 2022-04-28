@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { connect } from "react-redux"
 import { NavLink, Routes, useParams, useNavigate } from "react-router-dom"
-import {Message} from "./DialogMessages/Message/Message"
 import { loadDialogThunkCreator, setCurrentDialogThunkCreator, sendMessageCreator } from "../../redux/dialogsReducer"
 import css from "./CurrentDialog.module.css"
 import DialogMessages from "./DialogMessages/DialogMessages"

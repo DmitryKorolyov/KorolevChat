@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react"
 import css from './ConsoleInput.module.css'
 
 export const ConsoleInput = (props) => {
-    const inputEl = useRef(null);
-
+    //Костыль. Используется для активации виртуальной клавиатуры смартфона
+    const inputEl = useRef(null)
     const hiddenInputHandler = (event) => {
         
         if (event.target.value.slice(-2) == '\\'){

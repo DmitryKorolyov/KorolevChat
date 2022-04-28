@@ -19,13 +19,19 @@ const DialogMessages = (props) => {
 
     useEffect(() => {        
         if(props.dialog.length > 1){
-            
+            //При получении нового сообщения лента может находиться в двух состояниях:
+            //  1). Диалог пролистан книзу, последнее сообщение находится в области видимости, а значит при добовлении в ленту нового сообщения,
+            //  ее следует отмотать вниз, чтобы клиент увидел новое сообщение
+            //  2). Клиент отмотал диалог к интересующим его сообщениям. В области видимости окна диалога находятся уже прочитанные сообщения,
+            //  а не конец диалога. В таком случае следует уведомлять клиента о получении новых сообщений, но не отматывать диалог к ним.
             const observer = new IntersectionObserver(([entry], observer) => {
                 if (entry.isIntersecting){
+                    //Смартфон не всегда корректно отрабатывает пролистывание со значением "smooth"
                     entry.target.scrollIntoView({block: "center", behavior: (document.documentElement.clientWidth < 700) ? "auto" : "smooth"})
                 }
-                
-                else if (props.dialog.length !== props.lastReadOrder && isScrolled && downButtonRef.current.className !== css.downButtonActive/*&& props.dialog[-1].sender !== props.me*/) {
+                // В случае если диалог отмотан и приходит новое сообщение, активной становится кнопка, отвечающая за пролистывание к непрочитанным сообщениям
+                // Наблюдатель на endRef необходим для обеспечения сокрытия кнопки "[новое сообщение]" в случае пролистывания диалога вниз самим клиентом 
+                else if (props.dialog.length !== props.lastReadOrder && isScrolled && downButtonRef.current.className !== css.downButtonActive && props.dialog[-1].sender !== props.me) {
                     downButtonRef.current.className = css.downButtonActive
                     let forUnreadBtnObserver = new IntersectionObserver(([entry], observer) => {
                         if(entry.isIntersecting){
@@ -43,7 +49,10 @@ const DialogMessages = (props) => {
                 threshold: 0.1
             }
             )
+            // На момент получения нового сообщения последнее сообщение становится предпоследним
+            // В таком случае, если оно находится в области видимости, происходит перемотка ленты к новому сообщению
             observer.observe(endRef.current.previousElementSibling.previousElementSibling)
+            // Перемотка к непрочитанным сообщениям при открытии диалога
             if (!isScrolled) {
                 toUnreadRef.current.className = (props.dialog.length !== memorizedLastReadOrder && props.dialog.length > 3) ? css.withUnread : css.noUnread
                 toUnreadRef.current.scrollIntoView({block: "center", behavior: "smooth"})
