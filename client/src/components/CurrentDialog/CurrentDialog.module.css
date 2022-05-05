@@ -156,8 +156,16 @@
         border-style: none solid none solid;
         height: 100vh;
     }
-    .menuItem{
+    /* .menuItem{
         width: 35vw;
-    }
+    } */
 }
 
+@media screen and (max-width: 1200px){
+    .wrapper{
+        max-width: 80%;
+    }
+    .menuItem{
+        width: 20vw;
+    }
+}

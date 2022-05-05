@@ -87,3 +87,24 @@
         height: 6vw;
     }
 }
+
+
+@media screen and (max-width: 1200px){
+    .wrapper{
+        max-width: 80%;
+    }
+    .topBevel{
+        max-width: 73.6%;
+        height: 6vw;
+    }
+    .bottomBevel{
+        max-width: 73.7%;
+        height: 6vw;
+    }
+    /* .container{
+        font-size: 2em;
+    }*/
+    .titleSize{
+        font-size: 0.5vw;
+    } 
+}

@@ -4,9 +4,6 @@
     padding: 0.5vw;
     background-color: rgba(0,0,0,0.3);
     border: 1px solid green;
-    border-bottom: none;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
 }
 
 .first{
@@ -21,17 +18,11 @@
 
 .last{
     border-style: none solid solid solid;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 7px;
-    border-bottom-right-radius: 7px;
     margin-bottom: 7px;
 }
 
 .single{
     border-style: solid;
-    border-bottom-left-radius: 7px;
-    border-bottom-right-radius: 7px;
     margin: 7px 0;
 }
 

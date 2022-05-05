@@ -22,7 +22,7 @@ const DialogsPage = (props) => {
     input.request.length != 0 ? currentComponent = <FindedUsers/> : currentComponent = <DialogsList/>
     
     return (
-        <div>
+        <div className = {css.container}>
             <header className = {css.header}>
                 <div className = {css.titleContainer}>
                     <Title className = {css.title} style = {css.titleSize} />
@@ -34,7 +34,7 @@ const DialogsPage = (props) => {
             <div className = {css.topBevel}></div>
             <main className = {css.wrapper}>
                 <label>&rsaquo;:<input placeholder = 'Поиск пользователя' type = "text" class = "field" name = "nickname" onChange = {changeHandler} className = {css.customInput}></input></label>
-                <div className = {css.title}>Диалоги: </div>
+                {/* <div className = {css.title}>Диалоги: </div> */}
                 <div className = {css.dialogsWrapper}>{currentComponent}</div>
             </main>
             <div className = {css.bottomBevel}></div>

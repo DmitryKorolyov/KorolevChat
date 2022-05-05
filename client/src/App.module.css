@@ -24,3 +24,9 @@ body {
 @media screen and (max-width: 700px){
 	body{font-size: 7vw;}
   }
+
+@media screen and (max-width: 1000px){
+	body{
+		font-size: 4vw;
+	}
+}

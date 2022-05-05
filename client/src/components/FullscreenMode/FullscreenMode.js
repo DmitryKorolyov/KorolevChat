@@ -6,7 +6,7 @@ const FullscreenMode = (props) => {
     const navigate = useNavigate()
     return <Notice
         title = 'ВНИМАНИЕ!'
-        text = 'ОТОБРОЖЕНИЕ БУДЕТ ПЕРЕВЕДЕНО В ПОЛНОЭКРАННЫЙ РЕЖИМ. ДЛЯ ПРОДОЛЖЕНИЯ НАЖМИТЕ "ок"'
+        text = 'ОТОБРАЖЕНИЕ БУДЕТ ПЕРЕВЕДЕНО В ПОЛНОЭКРАННЫЙ РЕЖИМ. ДЛЯ ПРОДОЛЖЕНИЯ НАЖМИТЕ "ок"'
         buttonLabel = 'ок'
         handleClick = {() => { 
             if (document.documentElement.requestFullscreen)document.documentElement.requestFullscreen(); 
