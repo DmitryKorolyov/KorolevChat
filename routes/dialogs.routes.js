@@ -20,7 +20,6 @@ router.post(
             const interlocutor = await User.findById(req.body.id)
             
             const possiblyExisting = await Dialog.findOne({ interlocutors: [dialogCreator.nickname, interlocutor.nickname] })
-            console.log('possiblyExisting', possiblyExisting)
             if (possiblyExisting){
                 res.status(400).json({type: 'ERROR', errorInfo: 'Такой диалог уже существует!'})
             }

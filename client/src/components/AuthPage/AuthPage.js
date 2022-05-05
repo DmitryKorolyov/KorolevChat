@@ -9,6 +9,7 @@ import Title from '../Title/Title'
 import Notice from '../Notice/Notice'
 import withErrorHandler from '../../HOCs/withErrorHandler'
 import {consentCreator} from '../../redux/authReducer'
+import { raiseErrorCreator } from '../../redux/errorReducer'
 
 export const AuthPage = (props) => {
     const initialState = {
@@ -49,9 +50,9 @@ export const AuthPage = (props) => {
             <div>
                 {(state.authorizeMethod == '') && (state.nickname == '') && <AuthType enter = {(method) => {dispatch({type: 'AUTHORIZE_METHOD', method})}}/>}
                 {(state.authorizeMethod == 'Регистрация')  && (!props.consent) && <Notice
-                    title = 'ПРЕДУПРЕЖДЕНИЕ'
-                    text = 'В связи с развитием интернета и появлением огромнейшего объёма информации трудно уследить за её правильностью. Поэтому создатели сайтов используют дисклеймеры, чтобы защитить себя от возможных обвинений и претензий со стороны других лиц.Владельцы сайта не несут ответственности за правильность информации, размещённой другими пользователями.А если сайт предназначен только для лиц старше определённого возраста, то дисклеймер будет такой:Внимание! Наполнение сайта предназначено для лиц старше Х лет.'
-                    buttonLabel = 'Продолжить'
+                    title = 'ВНИМАНИЕ!'
+                    text = 'ДАННЫЙ РЕСУРС РАЗРАБОТАН ИСКЛЮЧИТЕЛЬНО В ОБРАЗОВАТЕЛЬНЫХ ЦЕЛЯХ. РАЗРАБОТЧИК НЕ ГАРАНТИРУЕТ КОНФИДЕНЦИАЛЬНОСТЬ ПРЕДОСТАВЛЯЕМОЙ ИНФОРМАЦИИ И ТАЙНУ ПЕРЕПИСКИ. ВЫ, КАК ПОЛЬЗОВАТЕЛЬ ДАННОГО РЕСУРСА, НЕСЕТЕ ЛИЧНУЮ ОТВЕТСТВЕННОСТЬ ЗА РАЗМЕЩАЕМУЮ НА ДАННОМ РЕСУРСЕ ИНФОРМАЦИЮ. НАЖИМАЯ КНОПКУ "продолжить", ВЫ СОГЛАШАЕТЕСЬ С ИЗЛОЖЕННЫМИ ВЫШЕ УСЛОВИЯМИ, А ТАКЖЕ ПОДТВЕРЖДАЕТЕ, ЧТО ВАМ БОЛЬШЕ ВОСЕМНАДЦАТИ ЛЕТ. В ПРОТИВНОМ СЛУЧАЕ, НЕМЕДЛЕННО ПОКИНЬТЕ СТРАНИЦУ.'
+                    buttonLabel = 'продолжить'
                     handleClick = {() => {props.giveConsent()}}
                 />}
                 {(state.authorizeMethod !== '') && (state.nickname == '') && (props.consent || state.authorizeMethod == 'Вход') && <ConsoleInput 
@@ -63,10 +64,17 @@ export const AuthPage = (props) => {
                     title = {state.authorizeMethod == 'Вход' ? "Введите пароль" : "Придумайте пароль пользователя учетной записи"}
                     enter = {(password) => {
                         dispatch({type:'PASSWORD', password})                        
-                        state.authorizeMethod == 'Вход' ? props.login(state.nickname, password) : props.register(state.nickname, password) 
-                        }} 
+                        state.authorizeMethod == 'Вход' && props.login(state.nickname, password) /* : props.register(state.nickname, password)*/
+                     }}
                 />}
-
+                {(state.authorizeMethod == 'Регистрация') && (state.nickname !== '') && (state.password !== '') && <ConsoleInput
+                    isPassword = {true}
+                    title = "Повторите пароль"
+                    enter = {(password) => {
+                        state.password == password ? props.register(state.nickname, password) : props.raiseError('Пароли не совпадают')
+                        }}
+                
+                />}
             </div>
         </div>
     )
@@ -88,7 +96,8 @@ let mapDispatchToProps = (dispatch) => {
         login: (nickname, password) => {
             dispatch(loginThunkCreator(nickname, password))
         },
-        giveConsent: () => {dispatch(consentCreator())}
+        giveConsent: () => {dispatch(consentCreator())},
+        raiseError: (errorInfo) => {dispatch(raiseErrorCreator(errorInfo))}
     }
 }
 
