@@ -19,7 +19,7 @@ const DialogsPage = (props) => {
     }
 
     let currentComponent
-    input.request.length != 0 ? currentComponent = <FindedUsers/> : currentComponent = <DialogsList/>
+    // input.request.length !== 0 ? currentComponent = <FindedUsers/> : currentComponent = <DialogsList/>
     
     return (
         <div className = {css.container}>
@@ -34,8 +34,8 @@ const DialogsPage = (props) => {
             <div className = {css.topBevel}></div>
             <main className = {css.wrapper}>
                 <label>&rsaquo;:<input placeholder = 'Поиск пользователя' type = "text" class = "field" name = "nickname" onChange = {changeHandler} className = {css.customInput}></input></label>
-                {/* <div className = {css.title}>Диалоги: </div> */}
-                <div className = {css.dialogsWrapper}>{currentComponent}</div>
+                <div className = {css.title}>{input.request.length !== 0 ? 'Найденные пользователи:' : 'Диалоги:'} </div>
+                <div className = {css.dialogsWrapper}>{input.request.length !== 0 ? currentComponent = <FindedUsers/> : currentComponent = <DialogsList/>}</div>
             </main>
             <div className = {css.bottomBevel}></div>
         </div>

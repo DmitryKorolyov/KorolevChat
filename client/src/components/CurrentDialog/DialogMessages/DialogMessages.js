@@ -31,7 +31,7 @@ const DialogMessages = (props) => {
                 }
                 // В случае если диалог отмотан и приходит новое сообщение, активной становится кнопка, отвечающая за пролистывание к непрочитанным сообщениям
                 // Наблюдатель на endRef необходим для обеспечения сокрытия кнопки "[новое сообщение]" в случае пролистывания диалога вниз самим клиентом 
-                else if (props.dialog.length !== props.lastReadOrder && isScrolled && downButtonRef.current.className !== css.downButtonActive && props.dialog[-1].sender !== props.me) {
+                else if (props.dialog.length !== props.lastReadOrder && isScrolled && downButtonRef.current.className !== css.downButtonActive/* && props.dialog[-1].sender !== props.me*/) {
                     downButtonRef.current.className = css.downButtonActive
                     let forUnreadBtnObserver = new IntersectionObserver(([entry], observer) => {
                         if(entry.isIntersecting){
@@ -56,6 +56,7 @@ const DialogMessages = (props) => {
             if (!isScrolled) {
                 toUnreadRef.current.className = (props.dialog.length !== memorizedLastReadOrder && props.dialog.length > 3) ? css.withUnread : css.noUnread
                 toUnreadRef.current.scrollIntoView({block: "center", behavior: "smooth"})
+                setInterval( () => {toUnreadRef.current.className = css.noUnread}, 5000)
                 setInterval( () => {setIsScrolled(true)}, 1000)
                     
             }

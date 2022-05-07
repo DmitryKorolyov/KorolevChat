@@ -8,6 +8,7 @@ import { Route } from "react-router-dom"
 import { useResizeObserver } from "../../customHooks/useResizeObserver"
 import Searcher from "../Searcher/Searcher"
 import { Preloader } from "../Preloader/Preloader"
+import withErrorHandler from "../../HOCs/withErrorHandler"
 
 const CurrentDialogContainer = (props) => {
     const params = useParams()
@@ -44,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentDialogContainer)
+export default withErrorHandler( connect(mapStateToProps, mapDispatchToProps)(CurrentDialogContainer))
 
 
 const CurrentDialogPresentation = (props) => {

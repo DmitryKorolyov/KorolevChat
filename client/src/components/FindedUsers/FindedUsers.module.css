@@ -1,6 +1,7 @@
 .user{
 cursor: pointer;
 margin: 1vh 0;
+font-size: 0.8em;
 }
 
 .user:hover{

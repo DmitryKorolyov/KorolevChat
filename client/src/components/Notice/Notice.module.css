@@ -16,7 +16,6 @@
 
 .button{
     display: inline;
-    /* margin-top: 20vh; */
 }
 
 .button:hover{
@@ -28,5 +27,11 @@
 @media screen and (max-width: 700px){
     #text{
         width: 95%;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    #text{
+        width: 90%;
     }
 }

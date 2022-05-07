@@ -93,11 +93,6 @@ router.post(
             res.json({token, userId: user.id, nickname: user.nickname})
         }
         catch(e) {
-            // User.collection.drop()
-            // Participant.collection.drop()
-            // Room.collection.drop()
-            // Message.collection.drop()
-            // Dialog.collection.drop()
             console.log('КОЛЛЕКЦИИ ОЧИЩЕНЫ!')
             res.status(500).json({type: 'ERROR', errorInfo: 'Ошибка!'})
             console.log(`Ошибка ${e}`)

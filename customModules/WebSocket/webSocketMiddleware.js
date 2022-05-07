@@ -114,7 +114,11 @@ WSMiddleware.useIfType(
             res.addNewConnectionInOutsideBroadcasts(req.dialogId, newParticipant.user)
             res.multicast(JSON.stringify({type: 'ADD_INTERLOCUTOR_OK', dialogId: req.dialogId, interlocutor: newParticipantData.nickname}))
         }
-        else res.send(JSON.stringify({type: 'ERROR', errorInfo: 'ТОЛЬКО СОЗДАТЕЛЬ БЕСЕДЫ МОЖЕТ ДОБАВЛЯТЬ УЧАСТНИКОВ'}))
+        else {
+            console.log('НЕ СОЗДАТЕЛЬ!!!')
+            res.send(JSON.stringify({type: 'ERROR', errorInfo: 'ТОЛЬКО СОЗДАТЕЛЬ БЕСЕДЫ МОЖЕТ ДОБАВЛЯТЬ УЧАСТНИКОВ'}))
+        
+        }
     }
 )
 

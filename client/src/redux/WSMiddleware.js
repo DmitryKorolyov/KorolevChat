@@ -1,5 +1,5 @@
 import { authResCreator, messageCreator, findedUsersCreator } from "./dialogsReducer";
-import raiseErrorCreator from "./errorReducer"
+import {raiseErrorCreator} from "./errorReducer"
 
 const WS_CONNECT = 'WS_CONNECT'
 const AUTH_RES = 'AUTH_RES'
@@ -50,6 +50,7 @@ const WSMiddlewareCreator = () => {
             store.dispatch(outsideDialogAdditionCreator(payload.interlocutor, payload.dialogId))
           case ERROR:
             store.dispatch(raiseErrorCreator(payload.errorInfo))
+            console.log('ERROR!')
           default:
             break
         }
