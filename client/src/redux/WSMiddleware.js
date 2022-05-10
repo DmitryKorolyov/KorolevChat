@@ -48,9 +48,11 @@ const WSMiddlewareCreator = () => {
             break
           case 'OUTSIDE_DIALOG_ADDITION':
             store.dispatch(outsideDialogAdditionCreator(payload.interlocutor, payload.dialogId))
+            break
           case ERROR:
             store.dispatch(raiseErrorCreator(payload.errorInfo))
             console.log('ERROR!')
+            break
           default:
             break
         }

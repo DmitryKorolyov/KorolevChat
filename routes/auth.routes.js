@@ -32,6 +32,9 @@ router.post(
         check('password', 'Некорректные данные').exists()
     ],
     async (req, res) => {
+        // const count = await User.deleteOne({nickname: 'DmitryKorolev'})
+        // await Dialog.deleteOne({_id: '6276deca517af13885df6e32'})
+        // console.log('count', count)
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
