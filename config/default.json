@@ -1,7 +1,0 @@
-{
-    "port": 5000,
-    "mongoURI": "mongodb+srv://DmitryKor:92bebtC4Z66NgeK@cluster0.6psuf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "JWTSecret": "The Cake is a lie",
-    "localMongoURI": "mongodb://127.0.0.1:27017/test"
-
-}
